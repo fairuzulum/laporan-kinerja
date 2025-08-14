@@ -1,23 +1,23 @@
 <nav>
     <!-- User Profile -->
-   <div class="flex items-center mb-6">
-    <img src="{{ Auth::user()->profile_photo ? Storage::url(Auth::user()->profile_photo) : 'https://via.placeholder.com/40' }}"
-        alt="Profile Photo" class="w-10 h-10 rounded-full mr-3 flex-shrink-0">
-    
-    {{-- Div pembungkus untuk teks --}}
-    <div>
-        <p class="text-lg font-semibold leading-tight">{{ Auth::user()->name }}</p>
-        <div class="text-sm text-gray-300">
-            @if (Auth::user()->role === 'unit_kerja' && Auth::user()->unitKerja)
-                {{-- Jika rolenya unit_kerja dan unitnya ada, tampilkan nama unit --}}
-                <span>{{ Auth::user()->unitKerja->nama_unit }}</span>
-            @else
-                {{-- Jika tidak, tampilkan nama role seperti biasa --}}
-                <span class="capitalize">{{ str_replace('_', ' ', Auth::user()->role) }}</span>
-            @endif
+    <div class="flex items-center mb-6">
+        <img src="{{ Auth::user()->profile_photo ? Storage::url(Auth::user()->profile_photo) : 'https://via.placeholder.com/40' }}"
+            alt="Profile Photo" class="w-10 h-10 rounded-full mr-3 flex-shrink-0">
+
+        {{-- Div pembungkus untuk teks --}}
+        <div>
+            <p class="text-lg font-semibold leading-tight">{{ Auth::user()->name }}</p>
+            <div class="text-sm text-gray-300">
+                @if (Auth::user()->role === 'unit_kerja' && Auth::user()->unitKerja)
+                    {{-- Jika rolenya unit_kerja dan unitnya ada, tampilkan nama unit --}}
+                    <span>{{ Auth::user()->unitKerja->nama_unit }}</span>
+                @else
+                    {{-- Jika tidak, tampilkan nama role seperti biasa --}}
+                    <span class="capitalize">{{ str_replace('_', ' ', Auth::user()->role) }}</span>
+                @endif
+            </div>
         </div>
     </div>
-</div>
     <hr class="border-gray-600 mb-4">
 
     <!-- Menu -->
@@ -56,6 +56,12 @@
                     <i class="fas fa-download mr-2"></i> Download Laporan
                 </a>
             </li>
+            <li>
+                <a href="{{ route('laporan.pdf') }}"
+                    class="flex items-center px-4 py-2 rounded hover:bg-blue-700 {{ Route::is('laporan.pdf') ? 'bg-blue-700' : '' }}">
+                    <i class="fas fa-file-pdf mr-2"></i> Report PDF
+                </a>
+            </li>
         @elseif($role === 'evaluator')
             <li>
                 <a href="{{ route('evaluator.dashboard') }}"
@@ -63,8 +69,6 @@
                     <i class="fas fa-tasks mr-2"></i> Dashboard Evaluator
                 </a>
             </li>
-            
-
         @elseif($role === 'unit_kerja')
             <li>
                 <a href="{{ route('realisasi.index') }}"

@@ -119,6 +119,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
     Route::get('/laporan/export', [LaporanController::class, 'export'])->name('laporan.export');
 
+    Route::get('/laporan/pdf', [LaporanController::class, 'indexPdf'])->name('laporan.pdf');
+    Route::get('/laporan/export-pdf', [LaporanController::class, 'exportPdf'])->name('laporan.export_pdf');
+
     Route::post('/evaluasi-laporan', [EvaluasiController::class, 'store'])->name('evaluasi.store');
     Route::get('/realisasi/{realisasi}', [RealisasiController::class, 'show'])->name('realisasi.show');
 
